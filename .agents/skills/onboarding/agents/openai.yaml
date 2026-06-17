@@ -1,0 +1,6 @@
+interface:
+  display_name: "Onboarding"
+  short_description: "生成低负担 Codex Starter Pack 文件"
+  default_prompt: "Use $onboarding to generate a Codex Starter Pack for my work."
+policy:
+  allow_implicit_invocation: true
