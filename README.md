@@ -34,7 +34,51 @@ Most people start every agent session by re-explaining the same background:
 
 This Skill turns that repeated setup into a reusable Starter Pack.
 
-## Install
+## Install And Initialize
+
+### Easiest Path
+
+Send this to Codex:
+
+```text
+Install this onboarding plugin and initialize my current project: https://github.com/ivorywanj/codex-onboarding-skill
+```
+
+Codex should install the plugin, verify that it is enabled, and ask:
+
+```text
+已装好。要开始初始化吗？我会先问 3 个偏好选择题；你也可以直接说“用推荐默认值”。
+```
+
+Default behavior is to initialize the current project after that short preference intake, then generate a reviewable `starter-pack/` draft. Existing project files are not overwritten.
+
+### Supported Install Sources
+
+Codex should support:
+
+- GitHub repo or URL: `ivorywanj/codex-onboarding-skill`
+- Zip file path: unzip to `/tmp/codex-onboarding-install-*`, find the marketplace manifest, and install from the extracted root
+- Local extracted folder path
+
+For exact install commands, see `INSTALL.md`.
+
+### Terminal Install
+
+If you are already inside this repository or an extracted zip, run:
+
+```sh
+sh scripts/install-codex-onboarding.sh
+```
+
+To install a PR branch directly:
+
+```sh
+sh scripts/install-codex-onboarding.sh ivorywanj/codex-onboarding-skill --ref codex/fix-onboarding-artifact-loop
+```
+
+Current Codex plugin manifests support plugin descriptions and starter prompts, but not a plugin-defined post-install app popup. The installer and Codex conversation handle the post-install initialization prompt.
+
+### Compatibility: Manual Skill Copy
 
 Copy this folder into the root of the Codex project you want to test:
 
@@ -88,6 +132,22 @@ The generated Starter Pack helps establish four practical memory layers:
 2. Project memory: what the project is and where files live.
 3. Workflow memory: recurring tasks and how to run them.
 4. Correction memory: user corrections that should become future rules.
+
+## Troubleshooting
+
+### The agent keeps saying "next I will..." but does not produce a file
+
+This is usually not a network issue. It normally means the agent is stuck between planning and artifact creation, or the requested tool is unavailable in the current environment.
+
+The generated Starter Pack now tells the agent to handle artifact requests in one of three ways:
+
+- create the requested file or content
+- call an available tool such as `presentations` or `imagegen` and verify a saved output path
+- state the concrete blocker once and create a fallback artifact, such as a Markdown deck, image brief, prompt, outline, or table
+
+If a tool appears to run but no saved file can be found or verified in the workspace, the agent should not claim the task is complete. It should create a fallback artifact and explain that the tool output could not be verified.
+
+If you are updating from an older Starter Pack, regenerate it with the latest Skill or copy the `Tool And Artifact Tasks` section from the generated `AGENTS.md` into your existing project instructions.
 
 ## Safety
 

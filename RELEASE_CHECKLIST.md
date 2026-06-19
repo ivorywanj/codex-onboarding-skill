@@ -4,12 +4,21 @@ Before publishing this repository:
 
 - Run a privacy scan for personal names, local paths, project names, and platform-specific private context.
 - Run a secret scan for API keys, passwords, private keys, tokens, `.env*`, and database URLs.
+- Confirm `.codex-plugin/marketplace.json` exposes `codex-onboarding`.
+- Confirm `plugins/codex-onboarding-skill/.codex-plugin/plugin.json` exposes `codex-onboarding-skill`.
 - Confirm `SKILL.md` frontmatter uses `name: onboarding`.
 - Confirm `agents/openai.yaml` uses `$onboarding`.
-- Open a fresh Codex session and test:
+- Install from a clean Codex environment and test GitHub, local folder, and zip sources:
 
-```text
-Use $onboarding to generate a Codex Starter Pack for my work.
+```sh
+sh scripts/install-codex-onboarding.sh ivorywanj/codex-onboarding-skill --ref main
 ```
 
-- Confirm the Skill asks choice-first questions and creates the requested Starter Pack files.
+- Confirm the install workflow asks to start initialization with 3 preference questions after successful installation.
+- In the same conversation or a fresh Codex session, test:
+
+```text
+Initialize this project with onboarding.
+```
+
+- Confirm the Skill asks the initial preference intake unless the user explicitly chooses defaults, creates a usable Starter Pack draft, and does not overwrite existing project files.

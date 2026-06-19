@@ -1,0 +1,20 @@
+{
+  "name": "codex-onboarding",
+  "interface": {
+    "displayName": "Codex Onboarding"
+  },
+  "plugins": [
+    {
+      "name": "codex-onboarding-skill",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-onboarding-skill"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
