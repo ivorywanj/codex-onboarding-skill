@@ -36,6 +36,24 @@ This Skill turns that repeated setup into a reusable Starter Pack.
 
 ## Install
 
+### Recommended: Codex Plugin
+
+Install the plugin from this GitHub repository with one command:
+
+```sh
+codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main && codex plugin add codex-onboarding-skill@codex-onboarding
+```
+
+Then open a fresh Codex session and run:
+
+```text
+Use $onboarding to generate a Codex Starter Pack for my work.
+```
+
+If you are testing a branch before it is merged, replace `main` with that branch name in the marketplace command.
+
+### Compatibility: Manual Skill Copy
+
 Copy this folder into the root of the Codex project you want to test:
 
 ```text

@@ -1,50 +1,72 @@
 # Artifact Smoke Tests
 
-Use these tests when changing the onboarding Skill behavior around output generation. Run them from clean temporary directories and do not commit generated artifacts.
+Use these tests when changing the onboarding Skill behavior around installation or output generation. Run them from clean temporary directories and do not commit generated artifacts.
 
 ## Setup
 
+Use a clean temporary home when testing plugin installation:
+
 ```sh
+SMOKE_HOME="/tmp/codex-onboarding-home-$(date +%Y%m%d%H%M%S)"
 SMOKE_DIR="/tmp/codex-onboarding-smoke-$(date +%Y%m%d%H%M%S)"
-mkdir -p "$SMOKE_DIR/.agents/skills"
-cp -R ".agents/skills/onboarding" "$SMOKE_DIR/.agents/skills/onboarding"
+mkdir -p "$SMOKE_HOME" "$SMOKE_DIR"
+HOME="$SMOKE_HOME" codex plugin marketplace add <repo-or-local-path>
+HOME="$SMOKE_HOME" codex plugin add codex-onboarding-skill@codex-onboarding
 ```
 
-Run Codex from the smoke directory:
+Run Codex from the smoke directory with the same clean home:
 
 ```sh
-/Applications/Codex.app/Contents/Resources/codex exec \
+HOME="$SMOKE_HOME" /Applications/Codex.app/Contents/Resources/codex exec \
   --ephemeral \
   --skip-git-repo-check \
   -C "$SMOKE_DIR" \
   "<prompt>"
 ```
 
+For backward compatibility checks, you may still copy `.agents/skills/onboarding` into a clean project manually, but plugin install is the primary release path.
+
+## Product Scoring
+
+Score each generated artifact task out of 100:
+
+- Task completion: 30 points. The user gets the requested deliverable or a clearly named fallback deliverable.
+- Usability: 25 points. The output is coherent, readable, and usable without manual repair.
+- Efficiency: 20 points. The task finishes without more than one unnecessary clarification or status-only turn.
+- Interaction burden: 15 points. The user is not asked to understand plugin, skill, or tool internals.
+- Credibility: 10 points. Tool success is only claimed when a saved workspace artifact or concrete external result is verifiable.
+
+Passing requires 80 or higher. A false success claim, repeated "next I will..." loop, or missing concrete blocker is a hard fail.
+
 ## Required Cases
 
-1. Starter Pack cold start
+1. Plugin installation cold start
+   - Action: install the marketplace and plugin from a clean Codex home.
+   - Pass: the plugin appears in `codex plugin list`, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
+
+2. Starter Pack cold start
    - Prompt: `Use $onboarding with defaults to generate a Codex Starter Pack for a new user.`
-   - Pass: the generated Starter Pack contains `AGENTS.md`, `profile.md`, `routes.md`, `tasks/lessons.md`, `skills/README.md`, and `README.md`; `AGENTS.md` includes `Tool And Artifact Tasks`.
+   - Pass: a non-technical user can follow the generated Starter Pack without extra explanation; `AGENTS.md` includes `Tool And Artifact Tasks`.
 
-2. Presentation artifact
+3. Presentation artifact
    - Prompt: `Based on the generated Starter Pack, create a 5-slide presentation about personal AI workflow basics.`
-   - Pass: Codex uses a presentation tool if available, or creates a Markdown deck such as `deck.md` or `slides.md` with 5 slides.
+   - Pass: Codex uses a presentation tool if available, or creates a Markdown deck with exactly 5 usable slides, each with a title and body.
 
-3. Image artifact
+4. Image artifact
    - Prompt: `Use imagegen to create a course cover image.`
-   - Pass: Codex uses image generation and verifies a saved workspace image path, or creates `cover-brief.md` with subject, layout, text, size, and visual style.
+   - Pass: Codex uses image generation and verifies a saved workspace image path, or creates a complete image brief with subject, layout, text, size, and visual style.
 
-4. One-page document
+5. One-page document
    - Prompt: `Create a one-page project introduction document.`
-   - Pass: Codex creates a complete Markdown document file.
+   - Pass: the result is a complete one-page document with a clear title, audience, value proposition, key points, and next step.
 
-5. Seven-day plan table
+6. Seven-day plan table
    - Prompt: `Create a 7-day content publishing plan table.`
-   - Pass: Codex creates a file with date, topic, artifact, and checklist columns.
+   - Pass: the result has 7 dated rows and includes topic, artifact, and checklist fields that a user can execute directly.
 
 ## Failure Signals
 
-- No output file is created.
+- No usable deliverable is produced.
 - The response repeatedly says future actions such as "next I will..." without output.
 - A missing tool is mentioned without a concrete blocker and fallback artifact.
 - The agent claims a tool succeeded but does not provide a verifiable saved artifact path.
