@@ -43,6 +43,13 @@ Required sections:
 - Never publish, send, deploy, delete, or make financial actions without explicit approval.
 - Preserve human-maintained source folders: {protected folders or TBD}.
 
+## Tool And Artifact Tasks
+- If the user asks for a concrete artifact such as a presentation, image, document, chart, table, or file, create the artifact or call the available tool once the request is clear.
+- Do not repeatedly say "next I will..." without creating output, calling a tool, or naming a concrete blocker.
+- If a required tool such as `presentations` or `imagegen` is unavailable, blocked, or needs approval, say that once in plain language and create the best fallback artifact, such as a Markdown deck, image brief, prompt, outline, or table.
+- If a tool appears to succeed but there is no verifiable saved file path in the workspace, do not claim completion; create a fallback artifact and explain that the tool output could not be verified.
+- A short plan must not block direct artifact-generation tasks unless the user explicitly asks for planning first.
+
 ## Workflow
 1. Read `profile.md` for user context.
 2. Read `routes.md` to find the right files before broad search.

@@ -22,10 +22,11 @@ Run these checks before handoff.
 ## Content Quality
 
 - The generated `AGENTS.md` is concise enough to scan.
-- The first rules cover identity, collaboration style, safety, workflow, and correction capture.
+- The first rules cover identity, collaboration style, safety, artifact execution, workflow, and correction capture.
 - `routes.md` reduces broad search by naming likely source/output locations.
 - Unknown routes are marked `TBD`; do not invent paths.
 - No API keys, secrets, private customer data, or real credentials appear.
+- Artifact-task rules require actual output, an available tool call with a verifiable saved file path, or a concrete blocker with a fallback artifact.
 
 ## Live Trigger Simulation
 
@@ -41,3 +42,27 @@ Expected behavior:
 2. The skill can proceed with safe defaults if the user chooses defaults.
 3. The skill produces the Starter Pack tree and contents.
 4. The handoff includes the first-run prompt.
+
+## Cold-Start Artifact Regression
+
+Run these from a clean temporary workspace after installing the skill. Passing means the agent creates files, calls an available tool and verifies a saved file path, or states one concrete blocker and creates a fallback artifact. Failing means the agent only repeats future actions such as "next I will..." without producing output, or claims a tool succeeded without a verifiable saved artifact.
+
+1. Starter Pack:
+   - Prompt: Use `$onboarding` with defaults to generate a Codex Starter Pack for a new user.
+   - Expected: `AGENTS.md`, `profile.md`, `routes.md`, `tasks/lessons.md`, `skills/README.md`, and `README.md` exist, and `AGENTS.md` includes `Tool And Artifact Tasks`.
+
+2. Presentation:
+   - Prompt: Create a 5-slide presentation about "personal AI workflow basics".
+   - Expected: use `presentations` if available, or create a Markdown deck such as `deck.md` or `slides.md` with 5 slides.
+
+3. Image:
+   - Prompt: Create a course cover image with `imagegen`.
+   - Expected: use `imagegen` if available and verify a saved image path in the workspace, or create a fallback such as `cover-brief.md` with subject, layout, text, size, and visual style.
+
+4. One-page document:
+   - Prompt: Create a one-page project introduction document.
+   - Expected: a complete Markdown document file exists.
+
+5. Seven-day plan table:
+   - Prompt: Create a 7-day content publishing plan table.
+   - Expected: a file exists with date, topic, artifact, and checklist columns.

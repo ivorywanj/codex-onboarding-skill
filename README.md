@@ -89,6 +89,22 @@ The generated Starter Pack helps establish four practical memory layers:
 3. Workflow memory: recurring tasks and how to run them.
 4. Correction memory: user corrections that should become future rules.
 
+## Troubleshooting
+
+### The agent keeps saying "next I will..." but does not produce a file
+
+This is usually not a network issue. It normally means the agent is stuck between planning and artifact creation, or the requested tool is unavailable in the current environment.
+
+The generated Starter Pack now tells the agent to handle artifact requests in one of three ways:
+
+- create the requested file or content
+- call an available tool such as `presentations` or `imagegen` and verify a saved output path
+- state the concrete blocker once and create a fallback artifact, such as a Markdown deck, image brief, prompt, outline, or table
+
+If a tool appears to run but no saved file can be found or verified in the workspace, the agent should not claim the task is complete. It should create a fallback artifact and explain that the tool output could not be verified.
+
+If you are updating from an older Starter Pack, regenerate it with the latest Skill or copy the `Tool And Artifact Tasks` section from the generated `AGENTS.md` into your existing project instructions.
+
 ## Safety
 
 Review generated files before sharing or committing them.

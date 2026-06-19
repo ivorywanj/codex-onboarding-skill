@@ -43,6 +43,7 @@ Default audience: anyone who wants an AI agent to understand their work context 
      - `tasks/lessons.md`
      - `skills/README.md`
      - `README.md`
+   - Ensure `AGENTS.md` includes artifact-task rules that require the agent to create the requested output, call an available tool with a verifiable saved result, or name a concrete blocker with a fallback artifact.
    - Keep files concise and actionable. Avoid bloated personal biographies or generic AI advice.
 
 4. Recommend starter workflows.
