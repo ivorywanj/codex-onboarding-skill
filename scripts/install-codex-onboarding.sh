@@ -114,7 +114,7 @@ cat <<'NEXT'
 
 Codex Onboarding is installed.
 
-要现在帮你把这个项目初始化成 Codex Starter Pack 吗？
+要开始初始化吗？我会先问 3 个偏好选择题；你也可以直接说“用推荐默认值”。
 默认我会初始化当前项目；也可以告诉我另一个项目路径，或者说“先不初始化”。
 NEXT
 

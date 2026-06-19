@@ -19,6 +19,8 @@ Run these checks before handoff.
 - Single turn asks no more than 3 questions.
 - Each choice question includes a recommended default.
 - After plugin installation, the next user-facing step is a direct initialization question, not a request to copy `$onboarding` into a new conversation.
+- First initialization asks the 3-question initial preference intake, unless the user explicitly chooses recommended defaults or skips intake.
+- A request that says "install and initialize" must not skip personal preference intake.
 - GitHub links, zip paths, and local extracted folders are valid install sources.
 - Existing projects are initialized as drafts without overwriting current project files or creating unrelated root task logs.
 
@@ -63,7 +65,7 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 
 1. GitHub link installation:
    - Action: user asks to install and initialize from `https://github.com/ivorywanj/codex-onboarding-skill`.
-   - Expected: install succeeds, `codex plugin list` shows the plugin installed and enabled, and the agent asks whether to initialize the current project.
+   - Expected: install succeeds, `codex plugin list` shows the plugin installed and enabled, and the agent asks the 3-question initial preference intake before generating files.
 
 2. Zip installation:
    - Action: user asks to install from a `.zip` path.
@@ -71,7 +73,7 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 
 3. Existing project initialization:
    - Action: initialize inside a directory that already has project files.
-   - Expected: the agent writes a Starter Pack draft without overwriting `AGENTS.md`, `README.md`, `tasks/lessons.md`, or an existing `starter-pack/`.
+   - Expected: the agent first asks the initial preference intake or confirms explicit defaults, then writes a Starter Pack draft without overwriting `AGENTS.md`, `README.md`, `tasks/lessons.md`, or an existing `starter-pack/`.
 
 4. Starter Pack:
    - Prompt: Use `$onboarding` with defaults to generate a Codex Starter Pack for a new user.

@@ -14,11 +14,11 @@ Before publishing this repository:
 sh scripts/install-codex-onboarding.sh ivorywanj/codex-onboarding-skill --ref main
 ```
 
-- Confirm the install workflow asks whether to initialize the current project after successful installation.
+- Confirm the install workflow asks to start initialization with 3 preference questions after successful installation.
 - In the same conversation or a fresh Codex session, test:
 
 ```text
 Initialize this project with onboarding.
 ```
 
-- Confirm the Skill asks choice-first questions, creates a usable Starter Pack draft, and does not overwrite existing project files.
+- Confirm the Skill asks the initial preference intake unless the user explicitly chooses defaults, creates a usable Starter Pack draft, and does not overwrite existing project files.

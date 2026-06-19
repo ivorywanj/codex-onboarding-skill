@@ -50,11 +50,11 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 
 1. Plugin installation cold start
    - Action: install from a GitHub repo, local folder, and zip path in clean Codex homes.
-   - Pass: the plugin appears in `codex plugin list`, the install flow asks whether to initialize the current project, and no `.agents/skills` copy is needed.
+   - Pass: the plugin appears in `codex plugin list`, the install flow asks to start initialization with 3 preference questions, and no `.agents/skills` copy is needed.
 
 2. Existing project initialization
    - Prompt: `Initialize this project with onboarding.`
-   - Pass: a non-technical user can follow the generated Starter Pack draft without extra explanation; existing `AGENTS.md`, `README.md`, `tasks/lessons.md`, and `starter-pack/` are not overwritten.
+   - Pass: Codex asks the 3-question initial preference intake unless the user explicitly chooses recommended defaults; a non-technical user can follow the generated Starter Pack draft without extra explanation; existing `AGENTS.md`, `README.md`, `tasks/lessons.md`, and `starter-pack/` are not overwritten.
 
 3. Presentation artifact
    - Prompt: `Based on the generated Starter Pack, create a 5-slide presentation about personal AI workflow basics.`
@@ -78,3 +78,4 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 - The response repeatedly says future actions such as "next I will..." without output.
 - A missing tool is mentioned without a concrete blocker and fallback artifact.
 - The agent claims a tool succeeded but does not provide a verifiable saved artifact path.
+- First initialization generates files before asking the initial preference intake or receiving an explicit "use defaults" instruction.

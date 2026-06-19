@@ -2,6 +2,8 @@
 
 Use these questions in batches of at most 3. Prefer choices. Defaults are marked `Recommended`.
 
+Before the first Starter Pack is generated, Batch 1 is required unless the user explicitly says to use recommended defaults or skip intake. Translate the questions and options into the user's language.
+
 ## Batch 1: User And Goal
 
 1. What best describes you?

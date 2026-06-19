@@ -47,10 +47,10 @@ Install this onboarding plugin and initialize my current project: https://github
 Codex should install the plugin, verify that it is enabled, and ask:
 
 ```text
-已装好。要我现在帮你把这个项目初始化成 Codex Starter Pack 吗？
+已装好。要开始初始化吗？我会先问 3 个偏好选择题；你也可以直接说“用推荐默认值”。
 ```
 
-Default behavior is to initialize the current project by generating a reviewable `starter-pack/` draft. Existing project files are not overwritten.
+Default behavior is to initialize the current project after that short preference intake, then generate a reviewable `starter-pack/` draft. Existing project files are not overwritten.
 
 ### Supported Install Sources
 

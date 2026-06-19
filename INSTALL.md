@@ -53,10 +53,10 @@ codex plugin list
 After `codex plugin list` shows the plugin installed and enabled, ask:
 
 ```text
-已装好。要我现在帮你把这个项目初始化成 Codex Starter Pack 吗？
+已装好。要开始初始化吗？我会先问 3 个偏好选择题；你也可以直接说“用推荐默认值”。
 ```
 
-Default to initializing the current project. If the user wants another project, ask for one project path. If the user says no, stop and say they can later ask: `帮我初始化 onboarding`。
+If the user already asked to install and initialize in one sentence, do not generate files immediately. Ask the 3-question initial preference intake first, then default to initializing the current project. If the user wants another project, ask for one project path. If the user says no, stop and say they can later ask: `帮我初始化 onboarding`。
 
 ## Existing Project Rules
 

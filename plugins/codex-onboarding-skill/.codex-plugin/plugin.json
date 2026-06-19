@@ -1,6 +1,6 @@
 {
   "name": "codex-onboarding-skill",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Create a low-friction Codex Starter Pack for new agent users.",
   "author": {
     "name": "ivorywanj",
@@ -13,8 +13,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Codex Onboarding Skill",
-    "shortDescription": "Install, then initialize the current project.",
-    "longDescription": "After installation, Codex should ask whether to initialize the current project as a Codex Starter Pack. It can generate a draft for an existing project without overwriting current files, and supports GitHub, zip, and local folder install sources.",
+    "shortDescription": "Install, ask preferences, then initialize the current project.",
+    "longDescription": "After installation, Codex should ask a short 3-question preference intake before initializing the current project as a Codex Starter Pack. It can generate a draft for an existing project without overwriting current files, and supports GitHub, zip, and local folder install sources.",
     "developerName": "ivorywanj",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
