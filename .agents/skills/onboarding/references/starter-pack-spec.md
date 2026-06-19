@@ -2,6 +2,8 @@
 
 Generate a folder named `starter-pack/` unless the user chooses another output path.
 
+For existing projects, never overwrite existing project instructions or docs. If `starter-pack/` already exists, generate `starter-pack-draft-YYYYMMDD-HHMM/` instead. During initialization, keep generated onboarding material inside the chosen draft directory; do not create root task logs such as `tasks/todo.md` unless the user explicitly asks.
+
 ## Folder Tree
 
 ```text
@@ -146,9 +148,11 @@ Make clear that these are recommended next workflows, not necessarily installed 
 Required content:
 
 - What this pack is.
-- How to copy files into a Codex project.
+- How to review and merge the draft into a Codex project.
 - First-run prompt.
 - Safety note: review files before sharing and do not include secrets.
+
+Reader-facing headings and prose should use the user's language. Literal file names, folder names, and standard workflow names may stay in English when that makes the artifact easier to use.
 
 First-run prompt:
 

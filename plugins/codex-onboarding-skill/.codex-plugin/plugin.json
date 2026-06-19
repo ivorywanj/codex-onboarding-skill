@@ -1,6 +1,6 @@
 {
   "name": "codex-onboarding-skill",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create a low-friction Codex Starter Pack for new agent users.",
   "author": {
     "name": "ivorywanj",
@@ -13,14 +13,14 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Codex Onboarding Skill",
-    "shortDescription": "Install, then run $onboarding in a new Codex session.",
-    "longDescription": "After installation, open a new Codex session and send: Use $onboarding to generate a Codex Starter Pack for my work. This creates AGENTS.md, profile, routes, lessons, starter workflows, and artifact-task rules so Codex can understand a user or project faster.",
+    "shortDescription": "Install, then initialize the current project.",
+    "longDescription": "After installation, Codex should ask whether to initialize the current project as a Codex Starter Pack. It can generate a draft for an existing project without overwriting current files, and supports GitHub, zip, and local folder install sources.",
     "developerName": "ivorywanj",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
     "websiteURL": "https://github.com/ivorywanj/codex-onboarding-skill",
     "defaultPrompt": [
-      "Use $onboarding to generate a Codex Starter Pack for my work."
+      "Initialize this project with onboarding."
     ],
     "brandColor": "#2563EB"
   }

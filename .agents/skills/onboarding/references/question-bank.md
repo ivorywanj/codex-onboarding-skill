@@ -24,7 +24,8 @@ Use these questions in batches of at most 3. Prefer choices. Defaults are marked
 ## Batch 2: Work Surface
 
 1. What type of workspace is this?
-   - General work folder (Recommended)
+   - Existing project in the current workspace (Recommended)
+   - General work folder
    - Notes or knowledge base
    - Project or code workspace
    - New empty workspace
@@ -43,11 +44,13 @@ Use these questions in batches of at most 3. Prefer choices. Defaults are marked
 ## Batch 3: Route Readiness
 
 1. Do you already know the key folder paths?
-   - Not yet, use placeholders with examples (Recommended)
+   - Use the current workspace layout (Recommended)
+   - Not yet, use placeholders with examples
    - Yes, I will provide short paths now
-   - Use the current workspace layout
 
-If the user chooses the recommended option, set route values to `TBD` and include examples in `routes.md`.
+If the user chooses the current workspace layout, inspect only lightweight project context and write visible top-level paths into `routes.md`; use `TBD` for anything unclear.
+
+If the user chooses placeholders, set route values to `TBD` and include examples in `routes.md`.
 
 If the user chooses to provide paths, ask for short text only:
 

@@ -18,11 +18,15 @@ Run these checks before handoff.
 - The user can complete onboarding without understanding `AGENTS.md`, skills, token budgets, routes, MCP, or memory internals.
 - Single turn asks no more than 3 questions.
 - Each choice question includes a recommended default.
+- After plugin installation, the next user-facing step is a direct initialization question, not a request to copy `$onboarding` into a new conversation.
+- GitHub links, zip paths, and local extracted folders are valid install sources.
+- Existing projects are initialized as drafts without overwriting current project files or creating unrelated root task logs.
 
 ## Content Quality
 
 - The generated `AGENTS.md` is concise enough to scan.
 - The first rules cover identity, collaboration style, safety, artifact execution, workflow, and correction capture.
+- Reader-facing headings and prose use the user's language; file names and standard workflow names may remain literal.
 - `routes.md` reduces broad search by naming likely source/output locations.
 - Unknown routes are marked `TBD`; do not invent paths.
 - No API keys, secrets, private customer data, or real credentials appear.
@@ -57,26 +61,34 @@ Score artifact tasks out of 100:
 
 Passing requires 80 or higher. A false success claim, repeated "next I will..." loop, or missing concrete blocker is a hard fail.
 
-1. Plugin installation:
-   - Action: install the marketplace and plugin from a clean Codex home.
-   - Expected: the plugin appears in `codex plugin list`, the install flow shows the next-step instruction, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
+1. GitHub link installation:
+   - Action: user asks to install and initialize from `https://github.com/ivorywanj/codex-onboarding-skill`.
+   - Expected: install succeeds, `codex plugin list` shows the plugin installed and enabled, and the agent asks whether to initialize the current project.
 
-2. Starter Pack:
+2. Zip installation:
+   - Action: user asks to install from a `.zip` path.
+   - Expected: the agent unzips to `/tmp/codex-onboarding-install-*`, finds the marketplace manifest, installs the plugin, and does not copy zip contents into the user's project.
+
+3. Existing project initialization:
+   - Action: initialize inside a directory that already has project files.
+   - Expected: the agent writes a Starter Pack draft without overwriting `AGENTS.md`, `README.md`, `tasks/lessons.md`, or an existing `starter-pack/`.
+
+4. Starter Pack:
    - Prompt: Use `$onboarding` with defaults to generate a Codex Starter Pack for a new user.
    - Expected: the Starter Pack is usable by a non-technical user without extra explanation, and `AGENTS.md` includes `Tool And Artifact Tasks`.
 
-3. Presentation:
+5. Presentation:
    - Prompt: Create a 5-slide presentation about "personal AI workflow basics".
    - Expected: use `presentations` if available, or create a Markdown deck with exactly 5 usable slides, each with a title and body.
 
-4. Image:
+6. Image:
    - Prompt: Create a course cover image with `imagegen`.
    - Expected: use `imagegen` if available and verify a saved image path in the workspace, or create a complete fallback brief with subject, layout, text, size, and visual style.
 
-5. One-page document:
+7. One-page document:
    - Prompt: Create a one-page project introduction document.
    - Expected: a complete one-page document with a clear title, audience, value proposition, key points, and next step.
 
-6. Seven-day plan table:
+8. Seven-day plan table:
    - Prompt: Create a 7-day content publishing plan table.
    - Expected: a 7-row plan with date, topic, artifact, and checklist fields that a user can execute directly.

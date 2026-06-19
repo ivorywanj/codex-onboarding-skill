@@ -4,15 +4,13 @@ Use these tests when changing the onboarding Skill behavior around installation 
 
 ## Setup
 
-Use a clean temporary home when testing plugin installation:
+Use a clean temporary home when testing plugin installation. Run from the repository root:
 
 ```sh
 SMOKE_HOME="/tmp/codex-onboarding-home-$(date +%Y%m%d%H%M%S)"
 SMOKE_DIR="/tmp/codex-onboarding-smoke-$(date +%Y%m%d%H%M%S)"
 mkdir -p "$SMOKE_HOME" "$SMOKE_DIR"
-HOME="$SMOKE_HOME" codex plugin marketplace add <repo-or-local-path>
-HOME="$SMOKE_HOME" codex plugin add codex-onboarding-skill@codex-onboarding
-printf '\nCodex Onboarding is installed.\nNext: open a new Codex session and send:\nUse $onboarding to generate a Codex Starter Pack for my work.\n'
+HOME="$SMOKE_HOME" sh scripts/install-codex-onboarding.sh .
 ```
 
 Run Codex from the smoke directory with the same clean home:
@@ -23,6 +21,15 @@ HOME="$SMOKE_HOME" /Applications/Codex.app/Contents/Resources/codex exec \
   --skip-git-repo-check \
   -C "$SMOKE_DIR" \
   "<prompt>"
+```
+
+For zip checks, create a zip from the repo and install from the zip path:
+
+```sh
+ZIP_DIR="/tmp/codex-onboarding-zip-$(date +%Y%m%d%H%M%S)"
+mkdir -p "$ZIP_DIR"
+git archive --format=zip --output="$ZIP_DIR/codex-onboarding-skill.zip" HEAD
+HOME="$SMOKE_HOME" sh scripts/install-codex-onboarding.sh "$ZIP_DIR/codex-onboarding-skill.zip"
 ```
 
 For backward compatibility checks, you may still copy `.agents/skills/onboarding` into a clean project manually, but plugin install is the primary release path.
@@ -42,12 +49,12 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 ## Required Cases
 
 1. Plugin installation cold start
-   - Action: install the marketplace and plugin from a clean Codex home.
-   - Pass: the plugin appears in `codex plugin list`, the install flow shows the next-step instruction, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
+   - Action: install from a GitHub repo, local folder, and zip path in clean Codex homes.
+   - Pass: the plugin appears in `codex plugin list`, the install flow asks whether to initialize the current project, and no `.agents/skills` copy is needed.
 
-2. Starter Pack cold start
-   - Prompt: `Use $onboarding with defaults to generate a Codex Starter Pack for a new user.`
-   - Pass: a non-technical user can follow the generated Starter Pack without extra explanation; `AGENTS.md` includes `Tool And Artifact Tasks`.
+2. Existing project initialization
+   - Prompt: `Initialize this project with onboarding.`
+   - Pass: a non-technical user can follow the generated Starter Pack draft without extra explanation; existing `AGENTS.md`, `README.md`, `tasks/lessons.md`, and `starter-pack/` are not overwritten.
 
 3. Presentation artifact
    - Prompt: `Based on the generated Starter Pack, create a 5-slide presentation about personal AI workflow basics.`

@@ -22,11 +22,39 @@ Default audience: anyone who wants an AI agent to understand their work context 
 - Do not write into user machine config, global Codex config, or hidden agent directories unless the user explicitly asks. First version is semi-automatic.
 - If target files already exist, create a draft under `starter-pack/` instead of overwriting.
 
+## Install-To-Initialize Handoff
+
+Use this when the user asks to install this onboarding plugin from a GitHub link, zip file, or local folder.
+
+- Treat installation and first initialization as one workflow. Do not tell the user to copy `$onboarding` into a new chat as the next required step.
+- If the user gives a GitHub repo or URL, install it with `codex plugin marketplace add <source> --ref <ref>` and then `codex plugin add codex-onboarding-skill@codex-onboarding`.
+- If the user gives a `.zip` path, unzip it into `/tmp/codex-onboarding-install-*`, locate `.agents/plugins/marketplace.json` or `.codex-plugin/marketplace.json`, install from that extracted root, and do not copy the zip contents into the user's project.
+- If the user gives a local extracted folder, locate the marketplace manifest and install from that folder.
+- After install, verify `codex plugin list` shows `codex-onboarding-skill@codex-onboarding` as installed and enabled.
+- Then ask in the current conversation: `已装好。要我现在帮你把这个项目初始化成 Codex Starter Pack 吗？`
+- Default to initializing the current workspace. Offer only two alternatives when needed: choose another project path, or skip initialization for now.
+- If the newly installed skill is not visible in the current session, continue by reading this `SKILL.md` from the installed plugin cache or the source repository and follow it directly for the first initialization.
+
+## Existing Project Initialization
+
+Use this when initializing an existing project or workspace.
+
+- Prefer the current Codex workspace as the target project when it contains `.git`, `README*`, `package.json`, `pyproject.toml`, `Cargo.toml`, `docs/`, `src/`, or other normal project files.
+- If the current workspace looks empty or unrelated, ask for one short project path.
+- Inspect only lightweight project context before generating: top-level tree, `README*`, existing `AGENTS.md`, and obvious docs folders. Do not inspect `.env*`, private keys, credentials, build artifacts, or large generated folders.
+- Do not overwrite existing `AGENTS.md`, `README.md`, `tasks/lessons.md`, or `starter-pack/`.
+- Default output is `<project>/starter-pack/`.
+- If `<project>/starter-pack/` already exists, output to `<project>/starter-pack-draft-YYYYMMDD-HHMM/`.
+- During initialization, write generated onboarding material inside the chosen draft directory only; do not create root task logs such as `<project>/tasks/todo.md` unless the user explicitly asks.
+- Adapt the generated Starter Pack to the existing project name, visible folder layout, existing docs, and known safety boundaries. Use `TBD` when unsure instead of inventing paths.
+- Handoff with the generated folder path and the safest next step for reviewing or merging the draft into the project.
+
 ## Workflow
 
 1. Confirm target agent and output location.
    - Default target agent: Codex.
    - Default output: `starter-pack/` in the current workspace or a user-provided folder.
+   - For an existing project, use the existing project initialization rules above.
 
 2. Run low-friction intake.
    - Read `references/question-bank.md`.
@@ -62,6 +90,7 @@ Default audience: anyone who wants an AI agent to understand their work context 
 ## Output Style
 
 - Write generated Starter Pack content in the user's language.
+- Translate reader-facing headings and prose into the user's language; keep literal file names and standard workflow names only when useful.
 - Use plain language and short sections.
 - Put the most important rules first.
 - Prefer "do / do not" instructions over essays.

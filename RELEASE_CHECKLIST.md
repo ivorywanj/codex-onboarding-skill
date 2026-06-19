@@ -8,19 +8,17 @@ Before publishing this repository:
 - Confirm `plugins/codex-onboarding-skill/.codex-plugin/plugin.json` exposes `codex-onboarding-skill`.
 - Confirm `SKILL.md` frontmatter uses `name: onboarding`.
 - Confirm `agents/openai.yaml` uses `$onboarding`.
-- Install from a clean Codex environment and test:
+- Install from a clean Codex environment and test GitHub, local folder, and zip sources:
 
 ```sh
-codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main && \
-codex plugin add codex-onboarding-skill@codex-onboarding && \
-printf '\nCodex Onboarding is installed.\nNext: open a new Codex session and send:\nUse $onboarding to generate a Codex Starter Pack for my work.\n'
+sh scripts/install-codex-onboarding.sh ivorywanj/codex-onboarding-skill --ref main
 ```
 
-- Confirm the install command prints the next-step message after successful installation.
-- Open a fresh Codex session and test:
+- Confirm the install workflow asks whether to initialize the current project after successful installation.
+- In the same conversation or a fresh Codex session, test:
 
 ```text
-Use $onboarding to generate a Codex Starter Pack for my work.
+Initialize this project with onboarding.
 ```
 
-- Confirm the Skill asks choice-first questions and creates a usable Starter Pack with artifact-task rules.
+- Confirm the Skill asks choice-first questions, creates a usable Starter Pack draft, and does not overwrite existing project files.
