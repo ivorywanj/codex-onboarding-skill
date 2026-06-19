@@ -11,10 +11,12 @@ Before publishing this repository:
 - Install from a clean Codex environment and test:
 
 ```sh
-codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main
-codex plugin add codex-onboarding-skill@codex-onboarding
+codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main && \
+codex plugin add codex-onboarding-skill@codex-onboarding && \
+printf '\nCodex Onboarding is installed.\nNext: open a new Codex session and send:\nUse $onboarding to generate a Codex Starter Pack for my work.\n'
 ```
 
+- Confirm the install command prints the next-step message after successful installation.
 - Open a fresh Codex session and test:
 
 ```text

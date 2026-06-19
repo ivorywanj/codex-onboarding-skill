@@ -38,19 +38,23 @@ This Skill turns that repeated setup into a reusable Starter Pack.
 
 ### Recommended: Codex Plugin
 
-Install the plugin from this GitHub repository with one command:
+Install the plugin from this GitHub repository with one pasted command:
 
 ```sh
-codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main && codex plugin add codex-onboarding-skill@codex-onboarding
+codex plugin marketplace add ivorywanj/codex-onboarding-skill --ref main && \
+codex plugin add codex-onboarding-skill@codex-onboarding && \
+printf '\nCodex Onboarding is installed.\nNext: open a new Codex session and send:\nUse $onboarding to generate a Codex Starter Pack for my work.\n'
 ```
 
-Then open a fresh Codex session and run:
+After installation, follow the message printed in your terminal:
 
 ```text
 Use $onboarding to generate a Codex Starter Pack for my work.
 ```
 
 If you are testing a branch before it is merged, replace `main` with that branch name in the marketplace command.
+
+Note: current Codex plugin manifests support plugin descriptions and starter prompts, but not a plugin-defined post-install app popup. The install command above prints the next step immediately after the plugin is installed.
 
 ### Compatibility: Manual Skill Copy
 

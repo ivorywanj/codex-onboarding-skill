@@ -12,6 +12,7 @@ SMOKE_DIR="/tmp/codex-onboarding-smoke-$(date +%Y%m%d%H%M%S)"
 mkdir -p "$SMOKE_HOME" "$SMOKE_DIR"
 HOME="$SMOKE_HOME" codex plugin marketplace add <repo-or-local-path>
 HOME="$SMOKE_HOME" codex plugin add codex-onboarding-skill@codex-onboarding
+printf '\nCodex Onboarding is installed.\nNext: open a new Codex session and send:\nUse $onboarding to generate a Codex Starter Pack for my work.\n'
 ```
 
 Run Codex from the smoke directory with the same clean home:
@@ -42,7 +43,7 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 
 1. Plugin installation cold start
    - Action: install the marketplace and plugin from a clean Codex home.
-   - Pass: the plugin appears in `codex plugin list`, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
+   - Pass: the plugin appears in `codex plugin list`, the install flow shows the next-step instruction, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
 
 2. Starter Pack cold start
    - Prompt: `Use $onboarding with defaults to generate a Codex Starter Pack for a new user.`

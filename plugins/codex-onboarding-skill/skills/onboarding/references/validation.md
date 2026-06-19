@@ -59,7 +59,7 @@ Passing requires 80 or higher. A false success claim, repeated "next I will..." 
 
 1. Plugin installation:
    - Action: install the marketplace and plugin from a clean Codex home.
-   - Expected: the plugin appears in `codex plugin list`, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
+   - Expected: the plugin appears in `codex plugin list`, the install flow shows the next-step instruction, and a fresh Codex session can trigger `$onboarding` without manually copying `.agents/skills`.
 
 2. Starter Pack:
    - Prompt: Use `$onboarding` with defaults to generate a Codex Starter Pack for a new user.
